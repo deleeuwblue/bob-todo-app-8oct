@@ -2,7 +2,7 @@ Setup:
 
 Delete all branches except main
 Ensure Chat permissions do not auto-approve write
-Make sure test_api.py does not include Author: comment
+Make sure main.py does not include Author: comment
 Make sure all feature branches are deleted
 ./restart.sh
 Connect IBM VPN and open settings->MCP at least once
