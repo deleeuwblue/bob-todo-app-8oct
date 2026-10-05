@@ -33,3 +33,6 @@ env/
 *.log
 .bob
 .bob/mcp.json
+todos.db
+app/__pycache__
+todos.db
