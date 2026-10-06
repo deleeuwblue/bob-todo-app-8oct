@@ -6,7 +6,7 @@ Make sure main.py does not include Author: comment
 Make sure all feature branches are deleted
 ./restart.sh
 Connect IBM VPN and open settings/MCP panel so it is pre-loaded
-Also open this text file
+Also open this text
 Make sure the task list contains only tasks 1-4
 
 Open web browser tabs:
