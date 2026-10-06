@@ -6,7 +6,7 @@
       "headers": {
         "Bob-Marketplace-Token": "bob-marketplace-local"
       },
-      "disabled": false,
+      "disabled": true,
       "alwaysAllow": [
         "search_assets",
         "get_asset",
@@ -25,7 +25,8 @@
         "WXO_MCP_WORKING_DIRECTORY": "/Users/adamdeleeuw/Documents/Work/Code/TODO FastAPI App with IBM Bob - Taskgen",
         "WXO_MCP_DEBUG": ""
       },
-      "timeout": 300
+      "timeout": 300,
+      "disabled": true
     }
   }
 }
