@@ -5,7 +5,7 @@ Ensure Chat permissions do not auto-approve write
 Make sure main.py does not include Author: comment
 Make sure all feature branches are deleted
 ./restart.sh
-Connect IBM VPN and open settings->MCP at least once
+Connect IBM VPN and open settings/MCP panel so it is pre-loaded
 Make sure the task list contains only tasks 1-4
 
 Open web browser tabs:
