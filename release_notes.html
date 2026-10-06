@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Release Notes - Due Date Feature</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #1f2328;
+      background: #ffffff;
+      line-height: 1.6;
+    }
+    h1 { font-size: 1.75rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; margin-bottom: 20px; }
+    h2 { font-size: 1.25rem; margin-top: 24px; margin-bottom: 12px; }
+    ul { padding-left: 20px; margin-bottom: 16px; }
+    li { margin-bottom: 6px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      background: #e1f0ff;
+      color: #0969da;
+      margin-bottom: 12px;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 12px;
+      color: #57606a;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Release Notes</h1>
+  <div class="badge">Issue #1 Resolved</div>
+  <p>Feature release adding target completion date (due date) capabilities to the Todo application.</p>
+
+  <h2>Summary of Changes</h2>
+  <ul>
+    <li><strong>Database & Models:</strong> Added optional <code>due_date</code> column to the Todo model.</li>
+    <li><strong>Schemas:</strong> Updated <code>TodoCreate</code>, <code>TodoUpdate</code>, and <code>TodoResponse</code> schemas with the <code>due_date</code> field.</li>
+    <li><strong>API Endpoints:</strong> Extended create and update routes to handle target completion dates.</li>
+    <li><strong>Frontend UI:</strong> Added date picker input to the task creation form and updated task list item rendering to display due dates.</li>
+  </ul>
+
+  <footer>Made with IBM Bob</footer>
+</body>
+</html>

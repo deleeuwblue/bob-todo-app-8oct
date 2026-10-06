@@ -33,10 +33,24 @@
       display: flex;
       gap: 8px;
       margin-bottom: 24px;
+      flex-wrap: wrap;
     }
 
-    .add-form input {
+    .add-form input[type="text"] {
       flex: 1;
+      min-width: 200px;
+      padding: 10px 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #fff;
+      color: #1f2328;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .add-form input[type="date"] {
       padding: 10px 14px;
       border: 1px solid #e5e7eb;
       border-radius: 6px;
@@ -93,8 +107,14 @@
       accent-color: #3b82d4;
     }
 
-    .todo-title {
+    .todo-content {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .todo-title {
       font-size: 0.95rem;
       line-height: 1.5;
       word-break: break-word;
@@ -102,6 +122,11 @@
 
     .todo-title.completed {
       text-decoration: line-through;
+      color: #57606a;
+    }
+
+    .todo-due-date {
+      font-size: 0.8rem;
       color: #57606a;
     }
 
@@ -151,6 +176,11 @@
         autocomplete="off"
         required
       />
+      <input
+        type="date"
+        id="todo-due-date"
+        aria-label="Target completion date"
+      />
       <button type="submit">Add</button>
     </form>
     <ul id="todo-list"></ul>
@@ -160,6 +190,7 @@
     const list = document.getElementById('todo-list');
     const form = document.getElementById('add-form');
     const input = document.getElementById('todo-input');
+    const dueDateInput = document.getElementById('todo-due-date');
     const errorBanner = document.getElementById('error-banner');
 
     function showError(msg) {
@@ -205,9 +236,20 @@
         checkbox.setAttribute('aria-label', `Mark "${todo.title}" as ${todo.completed ? 'incomplete' : 'complete'}`);
         checkbox.addEventListener('change', () => toggleTodo(todo.id, checkbox.checked));
 
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'todo-content';
+
         const span = document.createElement('span');
         span.className = 'todo-title' + (todo.completed ? ' completed' : '');
         span.textContent = todo.title;
+        contentDiv.appendChild(span);
+
+        if (todo.due_date) {
+          const dueSpan = document.createElement('span');
+          dueSpan.className = 'todo-due-date';
+          dueSpan.textContent = `Due: ${todo.due_date}`;
+          contentDiv.appendChild(dueSpan);
+        }
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'delete-btn';
@@ -216,19 +258,21 @@
         deleteBtn.addEventListener('click', () => deleteTodo(todo.id));
 
         li.appendChild(checkbox);
-        li.appendChild(span);
+        li.appendChild(contentDiv);
         li.appendChild(deleteBtn);
         list.appendChild(li);
       }
     }
 
-    async function addTodo(title) {
+    async function addTodo(title, dueDate) {
       clearError();
       try {
+        const payload = { title };
+        if (dueDate) payload.due_date = dueDate;
         const res = await fetch('/todos', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title }),
+          body: JSON.stringify(payload),
         });
         if (!res.ok) throw new Error('Failed to add todo');
       } catch {
@@ -268,9 +312,11 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const title = input.value.trim();
+      const dueDate = dueDateInput.value;
       if (!title) return;
       input.value = '';
-      await addTodo(title);
+      dueDateInput.value = '';
+      await addTodo(title, dueDate);
     });
 
     document.addEventListener('DOMContentLoaded', fetchTodos);
