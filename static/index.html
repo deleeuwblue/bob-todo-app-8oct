@@ -31,12 +31,14 @@
 
     .add-form {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 24px;
     }
 
     .add-form input {
       flex: 1;
+      min-width: 160px;
       padding: 10px 14px;
       border: 1px solid #e5e7eb;
       border-radius: 6px;
@@ -100,6 +102,17 @@
       word-break: break-word;
     }
 
+    .due-date {
+      font-size: 0.8rem;
+      color: #57606a;
+      white-space: nowrap;
+    }
+
+    .due-date.overdue {
+      color: #cf222e;
+      font-weight: 600;
+    }
+
     .todo-title.completed {
       text-decoration: line-through;
       color: #57606a;
@@ -151,6 +164,11 @@
         autocomplete="off"
         required
       />
+      <input
+        type="date"
+        id="due-date-input"
+        title="Due date"
+      />
       <button type="submit">Add</button>
     </form>
     <ul id="todo-list"></ul>
@@ -195,6 +213,7 @@
         list.appendChild(li);
         return;
       }
+      const today = new Date().toISOString().slice(0, 10);
       for (const todo of todos) {
         const li = document.createElement('li');
         li.className = 'todo-item';
@@ -217,18 +236,27 @@
 
         li.appendChild(checkbox);
         li.appendChild(span);
+        if (todo.due_date) {
+          const dateSpan = document.createElement('span');
+          const overdue = !todo.completed && todo.due_date < today;
+          dateSpan.className = 'due-date' + (overdue ? ' overdue' : '');
+          dateSpan.textContent = 'Due: ' + todo.due_date;
+          li.appendChild(dateSpan);
+        }
         li.appendChild(deleteBtn);
         list.appendChild(li);
       }
     }
 
-    async function addTodo(title) {
+    async function addTodo(title, dueDate) {
       clearError();
       try {
+        const body = { title };
+        if (dueDate) body.due_date = dueDate;
         const res = await fetch('/todos', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title }),
+          body: JSON.stringify(body),
         });
         if (!res.ok) throw new Error('Failed to add todo');
       } catch {
@@ -265,12 +293,16 @@
       await fetchTodos();
     }
 
+    const dueDateInput = document.getElementById('due-date-input');
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const title = input.value.trim();
       if (!title) return;
+      const dueDate = dueDateInput.value || null;
       input.value = '';
-      await addTodo(title);
+      dueDateInput.value = '';
+      await addTodo(title, dueDate);
     });
 
     document.addEventListener('DOMContentLoaded', fetchTodos);

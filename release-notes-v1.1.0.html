@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes — v1.1.0</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      background: #f7f8fa;
+      color: #1f2328;
+      padding: 48px 16px;
+      line-height: 1.6;
+    }
+    .page { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 40px 48px; }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .meta { font-size: 0.875rem; color: #57606a; margin-bottom: 32px; }
+    .badge { display: inline-block; background: #dff0d8; color: #2d6a2d; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; margin-left: 8px; vertical-align: middle; }
+    h2 { font-size: 1rem; font-weight: 700; color: #3b82d4; text-transform: uppercase; letter-spacing: 0.04em; margin: 28px 0 12px; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; font-size: 0.95rem; }
+    .issue-ref { font-size: 0.8rem; color: #57606a; margin-left: 6px; }
+    .file { font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.8rem; background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 4px; padding: 1px 5px; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center; font-size: 0.75rem; color: #57606a; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Todo App <span class="badge">v1.1.0</span></h1>
+    <p class="meta">Released — branch: <strong>feature/issue-1-due-date</strong> &nbsp;·&nbsp; Resolves <a href="https://github.com/issues/1">#1</a></p>
+
+    <h2>What's New</h2>
+    <ul>
+      <li><strong>Due date on tasks</strong> — every task can now be given a target completion date when it is created. <span class="issue-ref">(#1)</span></li>
+      <li><strong>Due date display</strong> — the date is shown inline on each task card. Overdue tasks (not yet completed, past their due date) are highlighted in red.</li>
+      <li><strong>Optional field</strong> — due date is not required; existing tasks without a date are unaffected.</li>
+    </ul>
+
+    <h2>Changes</h2>
+    <ul>
+      <li><span class="file">app/models.py</span> — added nullable <code>due_date</code> (SQLAlchemy <code>Date</code> column) to the <code>Todo</code> model.</li>
+      <li><span class="file">app/schemas.py</span> — added optional <code>due_date: Optional[date]</code> to <code>TodoCreate</code> and <code>TodoResponse</code>.</li>
+      <li><span class="file">app/routers/todos.py</span> — <code>create_todo</code> now passes <code>due_date</code> from the request payload to the model.</li>
+      <li><span class="file">static/index.html</span> — added a date picker input to the add-task form; task cards display the due date with overdue styling.</li>
+    </ul>
+
+    <h2>Database</h2>
+    <ul>
+      <li>Schema recreated to include the new <code>due_date</code> column. Existing <span class="file">todos.db</span> must be dropped and recreated on upgrade.</li>
+    </ul>
+
+    <footer>Made with IBM Bob</footer>
+  </div>
+</body>
+</html>
