@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes — Todo App v1.1.0</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      background: #f7f8fa;
+      color: #1f2328;
+      padding: 48px 16px;
+      line-height: 1.6;
+    }
+    .page { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 40px 48px; }
+    header { border-bottom: 2px solid #e5e7eb; padding-bottom: 20px; margin-bottom: 28px; }
+    header h1 { font-size: 1.6rem; font-weight: 700; color: #1f2328; }
+    header p { color: #57606a; font-size: 0.9rem; margin-top: 4px; }
+    .badge { display: inline-block; background: #3b82d4; color: #fff; font-size: 0.75rem; font-weight: 600; padding: 2px 10px; border-radius: 12px; vertical-align: middle; margin-left: 8px; }
+    section { margin-bottom: 32px; }
+    section h2 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #57606a; margin-bottom: 12px; }
+    ul { list-style: none; padding: 0; }
+    ul li { padding: 8px 0; border-bottom: 1px solid #f0f1f3; font-size: 0.95rem; }
+    ul li:last-child { border-bottom: none; }
+    ul li::before { content: "•"; color: #3b82d4; font-weight: 700; margin-right: 8px; }
+    .changed::before { color: #7c5cd8; }
+    .fixed::before { color: #1a7f37; }
+    code { background: #f0f1f3; border-radius: 4px; padding: 1px 5px; font-size: 0.88rem; font-family: ui-monospace, monospace; }
+    .issue-ref { font-size: 0.8rem; color: #57606a; margin-left: 6px; }
+    footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center; font-size: 0.75rem; color: #57606a; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Todo App <span class="badge">v1.1.0</span></h1>
+      <p>Released: <time datetime="2025-10-05">5 October 2025</time> &nbsp;·&nbsp; Branch: <code>feature/issue-1-due-date</code></p>
+    </header>
+
+    <section>
+      <h2>New Features</h2>
+      <ul>
+        <li><strong>Due date for tasks</strong> — Tasks now support an optional <em>complete-by date</em>. Set it when creating a task using the date picker in the UI. <span class="issue-ref">(Closes #1)</span></li>
+        <li><strong>Overdue indicator</strong> — Tasks whose due date has passed are highlighted in red with an ⚠ prefix so they stand out immediately.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Backend Changes</h2>
+      <ul>
+        <li class="changed"><strong>Model</strong> — <code>Todo</code> ORM model gains a nullable <code>due_date</code> (<code>Date</code>) column.</li>
+        <li class="changed"><strong>Schema</strong> — <code>TodoCreate</code> and <code>TodoResponse</code> schemas updated to include the optional <code>due_date</code> field.</li>
+        <li class="changed"><strong>Router</strong> — <code>POST /todos</code> now accepts and persists <code>due_date</code>; all endpoints have full docstrings added.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Frontend Changes</h2>
+      <ul>
+        <li class="changed"><strong>Add form</strong> — A date picker input has been added alongside the task title field. Due date is optional.</li>
+        <li class="changed"><strong>Task list</strong> — Each task now displays its due date beneath the title. Overdue tasks render the date in red.</li>
+        <li class="changed"><strong>Rendering</strong> — Task items restructured with a <code>.todo-body</code> container to stack title and due date vertically.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Fixed</h2>
+      <ul>
+        <li class="fixed">Issue #1 — Tasks had no way to record or display a completion deadline.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Upgrade Notes</h2>
+      <ul>
+        <li>The <code>todos</code> table gains a new <code>due_date</code> column. Delete <code>todos.db</code> and restart the server to recreate the schema, or run a migration manually.</li>
+      </ul>
+    </section>
+
+    <footer>Made with IBM Bob</footer>
+  </div>
+</body>
+</html>
