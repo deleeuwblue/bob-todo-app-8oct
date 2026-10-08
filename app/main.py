@@ -15,4 +15,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", include_in_schema=False)
 def root():
+    """Serve the single page frontend HTML file.
+
+    Returns:
+        FileResponse serving the static index.html file.
+    """
     return FileResponse("static/index.html")

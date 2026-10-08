@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes - Due Date Support</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f7f8fa;
+      color: #1f2328;
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 32px 40px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    h1 {
+      font-size: 1.75rem;
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: #1f2328;
+    }
+    .version-tag {
+      display: inline-block;
+      background-color: #e8f0fe;
+      color: #1a73e8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 6px;
+    }
+    ul {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    code {
+      background-color: #f1f3f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    .footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+      color: #57606a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Todo Application Release Notes</h1>
+    <span class="version-tag">Feature: Task Due Date Support (Resolves #1)</span>
+
+    <h2>Overview</h2>
+    <p>This release implements target completion dates for tasks, addressing Issue #1.</p>
+
+    <h2>Key Changes</h2>
+    <ul>
+      <li><strong>Database Model:</strong> Added <code>due_date</code> (Date) column to SQLAlchemy <code>Todo</code> model.</li>
+      <li><strong>Pydantic Schemas:</strong> Updated <code>TodoCreate</code>, <code>TodoUpdate</code>, and <code>TodoResponse</code> schemas to accept and return optional <code>due_date</code>.</li>
+      <li><strong>API Endpoints:</strong> Updated <code>/todos</code> endpoints with support for due dates and complete docstrings.</li>
+      <li><strong>Frontend UI:</strong> Added date picker input in task creation form and due date badge indicator on task cards.</li>
+    </ul>
+
+    <div class="footer">
+      Generated for feature branch <code>feature/task-due-dates</code>.
+    </div>
+  </div>
+</body>
+</html>
